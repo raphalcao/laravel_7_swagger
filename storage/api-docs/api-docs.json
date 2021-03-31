@@ -1,0 +1,300 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Road",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api"
+        }
+    ],
+    "paths": {
+        "/cars": {
+            "get": {
+                "tags": [
+                    "/cars"
+                ],
+                "summary": "Listar todos os carros",
+                "description": "Rota GET para exibir todos os carros em JSON.",
+                "responses": {
+                    "200": {
+                        "description": "List of tasks"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "/cars"
+                ],
+                "summary": "Rota específica para adicionar carro na API.",
+                "description": "Adicione o um carro seguindo as instruções do JSON.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "driver_id": {
+                                        "type": "integer"
+                                    },
+                                    "automakers": {
+                                        "type": "string"
+                                    },
+                                    "model": {
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "type": "string"
+                                    },
+                                    "color": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created"
+                    }
+                }
+            }
+        },
+        "/cars/{id}": {
+            "get": {
+                "tags": [
+                    "/cars"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Adicione o ID no campo",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "/cars"
+                ],
+                "summary": "Update de carro",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Adicione o ID no campo",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "driver_id": {
+                                            "type": "integer"
+                                        },
+                                        "automakers": {
+                                            "type": "string"
+                                        },
+                                        "model": {
+                                            "type": "string"
+                                        },
+                                        "year": {
+                                            "type": "string"
+                                        },
+                                        "color": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "/cars"
+                ],
+                "operationId": "App\\Http\\Controllers\\api\\CarController::__construct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Delete por ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso"
+                    }
+                }
+            }
+        },
+        "/drivers": {
+            "get": {
+                "tags": [
+                    "/drivers"
+                ],
+                "summary": "Display listing of the resource",
+                "description": "get all tasks on database and paginate then",
+                "responses": {
+                    "200": {
+                        "description": "List of tasks"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "/drivers"
+                ],
+                "summary": "Store a newly created resource in storage.",
+                "description": "store a new task on database",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "age": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "New driver created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/drivers/{id}": {
+            "get": {
+                "tags": [
+                    "/drivers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Adicione o ID no campo",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "/drivers"
+                ],
+                "summary": "Update de motorista",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Esta rota atualiza o motorista através da localização por ID.",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "age": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "/drivers"
+                ],
+                "operationId": "App\\Http\\Controllers\\api\\DriverController::__construct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Digite o ID do motorista no campo",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
