@@ -12,8 +12,8 @@ class CarController extends AbstractController
     /**
      * @OA\Get(
      *          tags={"/cars"},
-     *          summary="Listar todos os carros",
-     *          description="Rota GET para exibir todos os carros em JSON.",
+     *          summary="Rota GET Carros",
+     *          description="Listar todos os carros cadastrados na base de dados",
      *          path="/cars",
      *          @OA\Response(
      *              response="200", description="List of tasks"
@@ -28,10 +28,11 @@ class CarController extends AbstractController
     /**
      * @OA\Post(
      *          tags={"/cars"},
-     *          summary="Rota específica para adicionar carro na API.",
-     *          description="Adicione o um carro seguindo as instruções do JSON.",
+     *          summary="Rota POST carros",
+     *          description="Adicione um carro",
      *          path="/cars",
      *          @OA\RequestBody(
+     *              description="Atualize os dados seguindo o formato de JSON",
      *              required=true,
      *              @OA\JsonContent(
      *                  type="object",
@@ -55,6 +56,7 @@ class CarController extends AbstractController
      * @OA\Get(
      *   tags={"/cars"},
      *   path="/cars/{id}",
+     *   summary="Rota GET por ID do carro",
      *   @OA\Parameter(
      *     description="Adicione o ID no campo",
      *     in="path",
@@ -76,27 +78,43 @@ class CarController extends AbstractController
      * @OA\Put(
      *     tags={"/cars"},
      *     path="/cars/{id}",
-     *     summary="Update de carro",
      *     @OA\Parameter(
      *          description="Adicione o ID no campo",
      *          in="path",
      *          name="id",
      *          required=true,
-     *                         
-     *        @OA\JsonContent(
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     operationId="update",
+     *     summary="Rota UPDATE carro",
+     *     description="",        
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Atualize os dados seguindo o formato de JSON",
+     *         @OA\JsonContent(
      *                  type="object",
-     *                  @OA\Property(property="id",type="integer"),
-     *                  @OA\Property(property="driver_id",type="integer"),
-     *                  @OA\Property(property="automakers",type="string"),
-     *                  @OA\Property(property="model",type="string"),
-     *                  @OA\Property(property="year",type="string"),
-     *                  @OA\Property(property="color",type="string"),
-     *              )
-     *          ),
+     *                  @OA\Property(property="driver_id", type="integer"),
+     *                  @OA\Property(property="automakers",  type="string"),
+     *                  @OA\Property(property="model",  type="string"),
+     *                  @OA\Property(property="year",  type="string"),
+     *                  @OA\Property(property="color",  type="string"),
+     *           )         
+     *         
+     *     ),
      *     @OA\Response(
-     *         response=200,
-     *         description="OK"
-     *     )
+     *         response=400,
+     *         description="Invalid ID supplied",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="not found",
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Validation exception",
+     *     ),
      * )
      */
 
@@ -105,8 +123,9 @@ class CarController extends AbstractController
      * @OA\Delete(
      *   tags={"/cars"},
      *   path="/cars/{id}",
+     *   summary="Rota DELETE carro",
      *   @OA\Parameter(
-     *     description="Delete por ID",
+     *     description="Digite o ID do carro",
      *     in="path",
      *     name="id",
      *     required=true,
@@ -116,8 +135,12 @@ class CarController extends AbstractController
      *   ),
      *   @OA\Response(
      *       response="default",
-     *       response="200", description="Sucesso"
-     *   )
+     *       response="200", description="success"
+     *   ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="not found",
+     *     ),
      * )
      */
     public function __construct()

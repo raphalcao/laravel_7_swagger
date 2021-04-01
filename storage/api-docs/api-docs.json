@@ -15,8 +15,8 @@
                 "tags": [
                     "/cars"
                 ],
-                "summary": "Listar todos os carros",
-                "description": "Rota GET para exibir todos os carros em JSON.",
+                "summary": "Rota GET Carros",
+                "description": "Listar todos os carros cadastrados na base de dados",
                 "responses": {
                     "200": {
                         "description": "List of tasks"
@@ -27,9 +27,10 @@
                 "tags": [
                     "/cars"
                 ],
-                "summary": "Rota específica para adicionar carro na API.",
-                "description": "Adicione o um carro seguindo as instruções do JSON.",
+                "summary": "Rota POST carros",
+                "description": "Adicione um carro",
                 "requestBody": {
+                    "description": "Atualize os dados seguindo o formato de JSON",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -68,6 +69,7 @@
                 "tags": [
                     "/cars"
                 ],
+                "summary": "Rota GET por ID do carro",
                 "parameters": [
                     {
                         "name": "id",
@@ -89,45 +91,57 @@
                 "tags": [
                     "/cars"
                 ],
-                "summary": "Update de carro",
+                "summary": "Rota UPDATE carro",
+                "description": "",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "Adicione o ID no campo",
                         "required": true,
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer"
-                                        },
-                                        "driver_id": {
-                                            "type": "integer"
-                                        },
-                                        "automakers": {
-                                            "type": "string"
-                                        },
-                                        "model": {
-                                            "type": "string"
-                                        },
-                                        "year": {
-                                            "type": "string"
-                                        },
-                                        "color": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
+                "requestBody": {
+                    "description": "Atualize os dados seguindo o formato de JSON",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "driver_id": {
+                                        "type": "integer"
+                                    },
+                                    "automakers": {
+                                        "type": "string"
+                                    },
+                                    "model": {
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "type": "string"
+                                    },
+                                    "color": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
                     }
                 }
             },
@@ -135,12 +149,13 @@
                 "tags": [
                     "/cars"
                 ],
+                "summary": "Rota DELETE carro",
                 "operationId": "App\\Http\\Controllers\\api\\CarController::__construct",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Delete por ID",
+                        "description": "Digite o ID do carro",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -149,7 +164,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Sucesso"
+                        "description": "success"
+                    },
+                    "404": {
+                        "description": "not found"
                     }
                 }
             }
@@ -159,34 +177,27 @@
                 "tags": [
                     "/drivers"
                 ],
-                "summary": "Display listing of the resource",
-                "description": "get all tasks on database and paginate then",
+                "summary": "Rota GET Motorista",
+                "description": "Lista todos os motoristas na base de dados.",
                 "responses": {
                     "200": {
                         "description": "List of tasks"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
                     "/drivers"
                 ],
-                "summary": "Store a newly created resource in storage.",
-                "description": "store a new task on database",
+                "summary": "Rota POST motorista.",
+                "description": "Adicione um motorista",
                 "requestBody": {
+                    "description": "Atualize os dados seguindo o formato de JSON",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "id": {
-                                        "type": "integer"
-                                    },
                                     "name": {
                                         "type": "string"
                                     },
@@ -203,12 +214,7 @@
                     "201": {
                         "description": "New driver created"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         },
         "/drivers/{id}": {
@@ -216,6 +222,7 @@
                 "tags": [
                     "/drivers"
                 ],
+                "summary": "Rota GET por ID do motorista",
                 "parameters": [
                     {
                         "name": "id",
@@ -237,36 +244,48 @@
                 "tags": [
                     "/drivers"
                 ],
-                "summary": "Update de motorista",
+                "summary": "Rota UPDATE motorista",
+                "description": "",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Esta rota atualiza o motorista através da localização por ID.",
+                        "description": "Adicione o ID no campo",
                         "required": true,
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "age": {
-                                            "type": "number"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
+                "requestBody": {
+                    "description": "Atualize os dados seguindo o formato de JSON",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "age": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
                     }
                 }
             },
@@ -274,12 +293,13 @@
                 "tags": [
                     "/drivers"
                 ],
+                "summary": "Rota DELETE motorista",
                 "operationId": "App\\Http\\Controllers\\api\\DriverController::__construct",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Digite o ID do motorista no campo",
+                        "description": "Digite o ID do motorista",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -288,7 +308,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Sucesso"
+                        "description": "success"
+                    },
+                    "404": {
+                        "description": "not found"
                     }
                 }
             }

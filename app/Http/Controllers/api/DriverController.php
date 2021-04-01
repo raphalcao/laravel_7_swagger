@@ -11,10 +11,9 @@ class DriverController extends AbstractController
     /**
      * @OA\Get(
      *          tags={"/drivers"},
-     *          summary="Display listing of the resource",
-     *          description="get all tasks on database and paginate then",
-     *          path="/drivers",
-     *          security={{"bearerAuth": {}}},
+     *          summary="Rota GET Motorista",
+     *          description="Lista todos os motoristas na base de dados.",
+     *          path="/drivers",    
      *          @OA\Response(
      *              response="200", description="List of tasks"
      *          )
@@ -27,15 +26,14 @@ class DriverController extends AbstractController
     /**
      * @OA\Post(
      *          tags={"/drivers"},
-     *          summary="Store a newly created resource in storage.",
-     *          description="store a new task on database",
+     *          summary="Rota POST motorista.",
+     *          description="Adicione um motorista",
      *          path="/drivers",
-     *          security={{"bearerAuth":{}}},
      *          @OA\RequestBody(
+     *          description="Atualize os dados seguindo o formato de JSON",
      *              required=true,
      *              @OA\JsonContent(
-     *                  type="object",
-     *                  @OA\Property(property="id", type="integer"),
+     *                  type="object",                
      *                  @OA\Property(property="name",  type="string"),     
      *                  @OA\Property(property="age",type="number"),                  
      *           )
@@ -46,12 +44,13 @@ class DriverController extends AbstractController
      * )
      * 
      */
-    
+
     // Method GET - Localizar Motorista por ID
     /**
      * @OA\Get(
      *   tags={"/drivers"},
      *   path="/drivers/{id}",
+     *   summary="Rota GET por ID do motorista",
      *   @OA\Parameter(
      *     description="Adicione o ID no campo",
      *     in="path",
@@ -69,37 +68,55 @@ class DriverController extends AbstractController
      */
 
     // Method PUT - Atualizar um motorista
-     /**
+    /**
      * @OA\Put(
      *     tags={"/drivers"},
      *     path="/drivers/{id}",
-     *     summary="Update de motorista",
      *     @OA\Parameter(
-     *         description="Esta rota atualiza o motorista através da localização por ID.",
-     *         in="path",
-     *         name="id",
+     *          description="Adicione o ID no campo",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     operationId="update",
+     *     summary="Rota UPDATE motorista",
+     *     description="",        
+     *     @OA\RequestBody(
      *         required=true,
-     *        @OA\JsonContent(
+     *         description="Atualize os dados seguindo o formato de JSON",
+     *         @OA\JsonContent(
      *                  type="object",
-     *                  @OA\Property(property="id",type="integer"),
-     *                  @OA\Property(property="name",type="string"),
-     *                  @OA\Property(property="age",type="number"), 
-     *              )
-     *          ),
+     *                  @OA\Property(property="name",  type="string"),     
+     *                  @OA\Property(property="age",type="number"),                  
+     *           )       
+     *         
+     *     ),
      *     @OA\Response(
-     *         response=200,
-     *         description="OK"
-     *     )
+     *         response=400,
+     *         description="Invalid ID supplied",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Pet not found",
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Validation exception",
+     *     ),
      * )
      */
-    
-     //Method Delete - Deletar um motorista por id
+
+    //Method Delete - Deletar um motorista por id
     /**
      * @OA\Delete(
      *   tags={"/drivers"},
      *   path="/drivers/{id}",
+     *   summary="Rota DELETE motorista",
      *   @OA\Parameter(
-     *     description="Digite o ID do motorista no campo",
+     *     description="Digite o ID do motorista",
      *     in="path",
      *     name="id",
      *     required=true,
@@ -109,8 +126,12 @@ class DriverController extends AbstractController
      *   ),
      *   @OA\Response(
      *       response="default",
-     *       response="200", description="Sucesso"
-     *   )
+     *       response="200", description="success"
+     *   ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="not found",
+     *     ),
      * )
      */
     public function __construct()
